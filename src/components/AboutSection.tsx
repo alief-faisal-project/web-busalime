@@ -51,6 +51,16 @@ const AboutSection = () => {
             <a
               href="#products"
               className="btn-primary inline-flex items-center gap-2 hover:gap-3 transition-all"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("products");
+                if (el) {
+                  el.scrollIntoView({ behavior: "smooth", block: "start" });
+                } else {
+                  // fallback: update hash jika elemen belum ada di DOM
+                  window.location.hash = "#products";
+                }
+              }}
             >
               Lihat Produk Busalime
               <svg
