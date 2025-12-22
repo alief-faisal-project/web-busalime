@@ -31,19 +31,27 @@ const FeatureBar = () => {
     if (!container) return;
 
     const computeSlideWidth = () => {
-      const first = container.querySelector(
-        "[data-slide]"
-      ) as HTMLElement | null;
-      const style = getComputedStyle(container);
-      const gap = parseFloat(style.columnGap || style.gap || "0");
-      slideWidthRef.current = first ? first.offsetWidth + gap : 276;
+      const slides = Array.from(
+        container.querySelectorAll("[data-slide]")
+      ) as HTMLElement[];
+      if (!slides.length) return;
+      // If there are at least two slides, compute distance between starts to include gap
+      if (slides.length >= 2) {
+        const first = slides[0];
+        const second = slides[1];
+        slideWidthRef.current = second.offsetLeft - first.offsetLeft;
+      } else {
+        // fallback to offsetWidth
+        slideWidthRef.current = slides[0].offsetWidth;
+      }
     };
 
     computeSlideWidth();
 
     const onScroll = () => {
       const left = container.scrollLeft;
-      const idx = Math.round(left / (slideWidthRef.current || 1));
+      const w = slideWidthRef.current || 1;
+      const idx = Math.round(left / w);
       setActiveIndex(Math.max(0, Math.min(features.length - 1, idx)));
     };
 
@@ -62,9 +70,15 @@ const FeatureBar = () => {
   const scrollToIndex = (index: number) => {
     const container = scrollRef.current;
     if (!container) return;
-    const left = index * (slideWidthRef.current || 0);
-    container.scrollTo({ left, behavior: "smooth" });
-    setActiveIndex(index);
+    const slides = Array.from(
+      container.querySelectorAll("[data-slide]")
+    ) as HTMLElement[];
+    const target = slides[index];
+    if (target) {
+      // scrollLeft to the child's offsetLeft so we align exactly
+      container.scrollTo({ left: target.offsetLeft, behavior: "smooth" });
+      setActiveIndex(index);
+    }
   };
 
   return (
@@ -98,7 +112,11 @@ const FeatureBar = () => {
 
         {/* Mobile: Horizontal scroll */}
         <div className="md:hidden -mx-4 px-4">
-          <div ref={scrollRef} className="overflow-x-auto scrollbar-hide pb-2">
+          {/* added snap classes and extra bottom padding so dots tidak menutupi konten */}
+          <div
+            ref={scrollRef}
+            className="overflow-x-auto scrollbar-hide pb-6 snap-x snap-mandatory"
+          >
             <div className="flex gap-4 w-max">
               {features.map((feature, index) => {
                 const Icon = feature.icon;
@@ -106,7 +124,8 @@ const FeatureBar = () => {
                   <div
                     key={index}
                     data-slide
-                    className="flex-shrink-0 w-[260px] bg-background rounded-xl p-4 shadow-sm border border-border animate-fade-in"
+                    // make each slide snap-start so scroll snaps one-per-item
+                    className="flex-shrink-0 w-[260px] bg-background rounded-xl p-4 shadow-sm border border-border animate-fade-in snap-start"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
                     <div className="flex items-center gap-3">
@@ -132,28 +151,29 @@ const FeatureBar = () => {
           </div>
 
           {/* Pagination dots: kecil, di bawah bar, tidak menutupi konten */}
-          <div className="flex items-center justify-center gap-2 mt-2">
+          <div className="flex items-center justify-center gap-3 mt-2">
             {features.map((_, idx) => (
               <button
                 key={idx}
                 aria-label={`Go to feature ${idx + 1}`}
                 onClick={() => scrollToIndex(idx)}
-                className="focus:outline-none"
+                className="focus:outline-none p-0"
               >
-                {/* kecil: outer ring + inner dot */}
+                {/* outer ring kecil */}
                 <span
-                  className={`flex items-center justify-center rounded-full transition-colors ${
+                  className={`inline-flex items-center justify-center rounded-full transition-colors ${
                     idx === activeIndex
                       ? "w-6 h-6 border-2 border-green-600"
-                      : "w-6 h-6 border border-green-100"
+                      : "w-7 h-7 border border-gray-100"
                   }`}
                   aria-hidden
                 >
+                  {/* inner dot lebih kecil */}
                   <span
                     className={`rounded-full transition-all ${
                       idx === activeIndex
                         ? "w-[10px] h-[10px] bg-green-600"
-                        : "w-[10px] h-[10px] bg-green-600"
+                        : "w-[10px] h-[10px] bg-gray-200"
                     }`}
                   />
                 </span>
