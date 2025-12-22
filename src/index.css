@@ -1,0 +1,212 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Busalime Design System - Inspired by mamaindonesia.com */
+
+@layer base {
+  :root {
+    /* Main brand colors - Green lime theme */
+    --background: 0 0% 100%;
+    --foreground: 210 11% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 11% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 11% 15%;
+
+    /* Primary green - #299800 */
+    --primary: 108 100% 30%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 108 90% 38%;
+    --primary-dark: 108 100% 24%;
+
+    /* Secondary - light mint */
+    --secondary: 160 40% 96%;
+    --secondary-foreground: 120 70% 30%;
+
+    /* Accent green-yellow lime */
+    --accent: 80 70% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --muted: 160 20% 95%;
+    --muted-foreground: 210 10% 40%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 20% 90%;
+    --input: 160 20% 90%;
+    --ring: 120 70% 35%;
+
+    --radius: 0.5rem;
+
+    /* Custom colors */
+    --lime-green: 120 70% 35%;
+    --lime-light: 120 50% 92%;
+    --lime-dark: 120 80% 20%;
+    --orange-accent: 25 95% 53%;
+    --yellow-accent: 45 100% 50%;
+
+    /* Feature bar gradient */
+    --feature-bg: 160 40% 97%;
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(120 30% 20% / 0.15);
+    --shadow-card: 0 8px 30px -8px hsl(120 30% 20% / 0.12);
+  }
+
+  .dark {
+    --background: 120 20% 8%;
+    --foreground: 0 0% 98%;
+
+    --card: 120 20% 12%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 120 20% 12%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 120 60% 50%;
+    --primary-foreground: 120 80% 10%;
+
+    --secondary: 120 20% 18%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 120 20% 18%;
+    --muted-foreground: 160 10% 60%;
+
+    --accent: 80 60% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 120 20% 20%;
+    --input: 120 20% 20%;
+    --ring: 120 60% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply text-foreground/80 hover:text-primary transition-colors duration-200 font-semibold text-sm uppercase tracking-wide;
+  }
+
+  .nav-link-active {
+    @apply text-primary font-bold;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-primary-foreground px-6 py-3 rounded-full font-semibold 
+           hover:bg-primary-light transition-all duration-300 shadow-lg hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground px-6 py-3 rounded-full font-semibold 
+           hover:bg-secondary/80 transition-all duration-300 border border-primary/20;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-foreground mb-6;
+  }
+
+  .feature-card {
+    @apply flex items-start gap-4 p-4;
+  }
+
+  .product-card {
+    @apply bg-card rounded-2xl p-6 shadow-card hover:shadow-xl transition-all duration-300 
+           hover:-translate-y-2 border border-border/50;
+  }
+
+  .container-section {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .ecommerce-btn {
+    @apply flex items-center gap-3 bg-card border border-border rounded-xl px-6 py-4 
+           hover:shadow-lg hover:border-primary/30 transition-all duration-300;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent;
+  }
+
+  .bg-wave {
+    background-image: url('/src/assets/bg-wave.png');
+    background-size: cover;
+    background-position: top center;
+    background-repeat: no-repeat;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scale-in {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.2s ease-out;
+  }
+
+  /* Hide scrollbar for horizontal scroll */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
