@@ -1,6 +1,6 @@
-import lemonYellow from '@/assets/lemon-yellow.png';
-import charcoalRight from '@/assets/charcoal-right.png';
-import produkImg from '@/assets/produk.png';
+import lemonYellow from "@/assets/lemon-yellow.png";
+import charcoalRight from "@/assets/charcoal-right.png";
+import produkImg from "@/assets/produk.png";
 
 const AboutSection = () => {
   return (
@@ -35,18 +35,18 @@ const AboutSection = () => {
 
           {/* Content Side */}
           <div className="order-1 lg:order-2">
-            <h2 className="section-title">
-              Cairan pencuci piring dengan aroma jeruk nipis
-            </h2>
+            <h2 className="section-title">Tentang Busalime</h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
-              Busalime hadir sebagai pilihan terbaik cairan pencuci piring untuk keluarga Indonesia. 
-              Dengan formula khusus dan aroma jeruk nipis yang menyegarkan, Busalime membantu 
-              membersihkan peralatan dapur Anda dengan mudah dan efektif.
+              Busalime hadir sebagai pilihan terbaik cairan pencuci piring untuk
+              keluarga Indonesia. Dengan formula khusus dan aroma jeruk nipis
+              yang menyegarkan, Busalime membantu membersihkan peralatan dapur
+              Anda dengan mudah dan efektif.
             </p>
             <p className="text-muted-foreground mb-8 leading-relaxed">
-              Diperkaya dengan bahan-bahan berkualitas tinggi, Busalime tidak hanya membersihkan 
-              lemak membandel tapi juga menjaga kelembutan tangan Anda. Pilihan tepat untuk 
-              keluarga yang peduli kebersihan dan kesehatan.
+              Diperkaya dengan bahan-bahan berkualitas tinggi, Busalime tidak
+              hanya membersihkan lemak membandel tapi juga menjaga kelembutan
+              tangan Anda. Pilihan tepat untuk keluarga yang peduli kebersihan
+              dan kesehatan.
             </p>
             <a
               href="#products"
