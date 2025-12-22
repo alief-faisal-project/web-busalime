@@ -58,7 +58,7 @@ const EcommerceSection = () => {
                 <div className={`font-semibold text-base ${store.textColor}`}>
                   {store.name}
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <div className="text-xs md:text-sm text-muted-foreground">
                   Official Store
                 </div>
               </div>
