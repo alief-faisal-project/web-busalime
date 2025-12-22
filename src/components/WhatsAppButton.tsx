@@ -69,7 +69,7 @@ const WhatsAppButton = () => {
       {/* Floating Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
+        className="fixed right-4 bottom-12 sm:bottom-6 sm:right-6 z-50 flex items-center gap-2 bg-primary text-primary-foreground px-4 py-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 group"
         aria-label="Hubungi Kami"
       >
         <Mail className="w-5 h-5" />

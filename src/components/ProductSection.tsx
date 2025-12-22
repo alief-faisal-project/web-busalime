@@ -9,6 +9,7 @@ interface Product {
   name: string;
   size: string;
   description: string;
+  shopeeUrl?: string; // ditambahkan untuk link Shopee
 }
 
 const products: Product[] = [
@@ -17,18 +18,21 @@ const products: Product[] = [
     name: "250ml",
     size: "250 ML",
     description: "Varian Jeruk Nipis",
+    shopeeUrl: "https://shopee.co.id", // demo link
   },
   {
     id: 2,
     name: "450ml",
     size: "450 ML",
     description: "Varian Jeruk Nipis",
+    shopeeUrl: "https://shopee.co.id", // demo link
   },
   {
     id: 3,
     name: "1000ml",
     size: "1000 ML",
     description: "Varian Jeruk Nipis",
+    shopeeUrl: "https://shopee.co.id", // demo link
   },
 ];
 
@@ -113,8 +117,7 @@ const ProductSection = () => {
         <div className="text-center mb-8 md:mb-12">
           <h2 className="section-title mb-3">Produk Kami</h2>
           <p className="text-muted-foreground text-sm md:text-base max-w-xl mx-auto">
-            Pilihan ukuran Busalime yang sesuai dengan
-            kebutuhan Anda
+            Pilihan ukuran Busalime yang sesuai dengan kebutuhan Anda
           </p>
         </div>
 
@@ -146,7 +149,19 @@ const ProductSection = () => {
                     onClick={() => {
                       if (autoPlayRef.current)
                         clearInterval(autoPlayRef.current);
-                      setCurrentIndex(index);
+                      // Jika klik pada produk yang sedang di tengah (center), buka link Shopee.
+                      // Jika bukan, jadikan produk itu sebagai current (pindah ke tengah).
+                      if (position === "center") {
+                        if (product.shopeeUrl) {
+                          window.open(
+                            product.shopeeUrl,
+                            "_blank",
+                            "noopener,noreferrer"
+                          );
+                        }
+                      } else {
+                        setCurrentIndex(index);
+                      }
                     }}
                     className={`absolute transition-all duration-700 ease-out cursor-pointer
                       ${
