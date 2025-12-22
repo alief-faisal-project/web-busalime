@@ -1,29 +1,39 @@
-import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import logoImg from '@/assets/logo-busalime.png';
+import { useState, useEffect, useRef } from "react";
+import { Menu, X } from "lucide-react";
+import logoImg from "@/assets/logo-busalime.png";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('#');
+  const [activeSection, setActiveSection] = useState("#");
 
-  const navItems = [
-    { name: 'Beranda', href: '#' },
-    { name: 'Tentang Busalime', href: '#about' },
-    { name: 'Produk', href: '#products' },
-    { name: 'E-commerce', href: '#ecommerce' },
-    { name: 'Kontak', href: '#contact' },
-  ];
+  // measure mobile menu height for smooth max-height transition
+  const menuRef = useRef<HTMLDivElement | null>(null);
+  const [menuHeight, setMenuHeight] = useState(0);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (menuRef.current) {
+        // scrollHeight is the full content height
+        setMenuHeight(menuRef.current.scrollHeight);
+      }
+    };
+
+    // measure on mount and on resize
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['contact', 'ecommerce', 'products', 'about'];
-      let found = '';
-      
+      const sections = ["contact", "ecommerce", "products", "about"];
+      let found = "";
+
       // Check if we're at the bottom of the page (for contact/footer section)
       const scrollPosition = window.scrollY + window.innerHeight;
       const pageHeight = document.documentElement.scrollHeight;
-      
+
       if (pageHeight - scrollPosition < 100) {
-        found = '#contact';
+        found = "#contact";
       } else {
         for (const sectionId of sections) {
           const element = document.getElementById(sectionId);
@@ -36,14 +46,22 @@ const Navbar = () => {
           }
         }
       }
-      
-      setActiveSection(found || '#');
+
+      setActiveSection(found || "#");
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navItems = [
+    { name: "Beranda", href: "#" },
+    { name: "Tentang Busalime", href: "#about" },
+    { name: "Produk", href: "#products" },
+    { name: "E-commerce", href: "#ecommerce" },
+    { name: "Kontak", href: "#contact" },
+  ];
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-background z-50 shadow-sm">
@@ -51,9 +69,9 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-12">
           {/* Logo */}
           <a href="#" className="flex items-center flex-shrink-0">
-            <img 
-              src={logoImg} 
-              alt="Busalime" 
+            <img
+              src={logoImg}
+              alt="Busalime"
               className="h-16 w-auto object-contain"
             />
           </a>
@@ -66,13 +84,17 @@ const Navbar = () => {
                   key={item.name}
                   href={item.href}
                   className={`relative text-foreground/80 hover:text-primary font-medium text-sm transition-colors group
-                    ${activeSection === item.href ? 'text-primary' : ''}
+                    ${activeSection === item.href ? "text-primary" : ""}
                   `}
                 >
                   {item.name}
-                  <span 
+                  <span
                     className={`absolute -bottom-1 left-0 w-full h-0.5 bg-primary transition-transform duration-300 origin-left
-                      ${activeSection === item.href ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
+                      ${
+                        activeSection === item.href
+                          ? "scale-x-100"
+                          : "scale-x-0 group-hover:scale-x-100"
+                      }
                     `}
                   />
                 </a>
@@ -86,32 +108,53 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <button
             className="md:hidden p-2 text-foreground"
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={() => {
+              setIsOpen((s) => !s);
+              // ensure we have an up-to-date measurement right when opening
+              if (menuRef.current) {
+                setMenuHeight(menuRef.current.scrollHeight);
+              }
+            }}
             aria-label="Toggle menu"
+            aria-expanded={isOpen}
           >
             {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden absolute top-12 left-0 right-0 bg-background border-t border-border shadow-lg animate-fade-in">
-            <div className="flex flex-col py-2">
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className={`px-6 py-2 text-foreground/80 hover:text-primary hover:bg-secondary text-sm font-medium transition-colors
-                    ${activeSection === item.href ? 'text-primary border-l-2 border-primary' : ''}
-                  `}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
-            </div>
+        {/* Mobile Navigation (animated slide down) */}
+        <div
+          // keep in DOM for smooth transition; control via maxHeight, opacity and transform
+          ref={menuRef}
+          className="md:hidden absolute top-12 left-0 right-0 bg-background border-t border-border shadow-lg overflow-hidden"
+          style={{
+            maxHeight: isOpen ? menuHeight : 0,
+            transition:
+              "max-height 320ms cubic-bezier(.2,.8,.2,1), opacity 200ms ease, transform 320ms cubic-bezier(.2,.8,.2,1)",
+            opacity: isOpen ? 1 : 0,
+            transform: isOpen ? "translateY(0)" : "translateY(-8px)",
+          }}
+          aria-hidden={!isOpen}
+        >
+          <div className="flex flex-col py-2">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className={`px-6 py-2 text-foreground/80 hover:text-primary hover:bg-secondary text-sm font-medium transition-colors
+                  ${
+                    activeSection === item.href
+                      ? "text-primary border-l-2 border-primary"
+                      : ""
+                  }
+                `}
+                onClick={() => setIsOpen(false)}
+              >
+                {item.name}
+              </a>
+            ))}
           </div>
-        )}
+        </div>
       </nav>
     </header>
   );
