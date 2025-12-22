@@ -71,7 +71,7 @@ const Footer = () => {
           <div className="grid grid-cols-4 gap-8">
             {/* Brand */}
             <div>
-              <img src={logoBsc} alt="PT. Busalime Sukses Cemerlang" className="h-14 w-auto mb-4" />
+              <img src={logoBsc} alt="PT. Busalime Sukses Cemerlang" className="h-1 w-auto mb-1" />
               <p className="text-primary-foreground/80 text-sm leading-relaxed">
                 PT.Busalime Sukses Cemerlang
               </p>

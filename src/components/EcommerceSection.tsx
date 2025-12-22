@@ -77,7 +77,7 @@ const EcommerceSection = () => {
             official store kami.
           </p>
           <a
-            href="https://tokopedia.com"
+            href="https://shopee.co.id"
             target="_blank"
             rel="noopener noreferrer"
             className="uiverse-btn inline-flex items-center gap-2 bg-background text-primary font-semibold px-6 py-3 rounded-full hover:bg-background/90 transition-colors"
