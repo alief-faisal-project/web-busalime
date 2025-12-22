@@ -1,21 +1,26 @@
-import { ShoppingBag } from 'lucide-react';
-import shopeeLogo from '@/assets/shopee-logo.png';
-import tokopediaLogo from '@/assets/tokopedia-logo.png';
+import { ShoppingBag } from "lucide-react";
+import shopeeLogo from "@/assets/shopee-logo.png";
+import tokopediaLogo from "@/assets/tokopedia-logo.png";
 
 const ecommerceStores = [
   {
-    name: 'Shopee',
+    name: "Shopee",
     logo: shopeeLogo,
-    url: 'https://shopee.co.id',
-    bgColor: 'bg-orange-50',
-    borderColor: 'border-orange-200',
+    url: "https://shopee.co.id",
+    // brand classes
+    bgColor: "bg-[#FFF4EE]", // light orange bg
+    borderColor: "border-[#FF6E3A]",
+    textColor: "text-[#FF6E3A]",
+    badgeBg: "bg-[#FF6E3A]/10",
   },
   {
-    name: 'Tokopedia',
+    name: "Tokopedia",
     logo: tokopediaLogo,
-    url: 'https://tokopedia.com',
-    bgColor: 'bg-green-50',
-    borderColor: 'border-green-200',
+    url: "https://tokopedia.com",
+    bgColor: "bg-[#F3FFF6]", // light green bg
+    borderColor: "border-[#00A44A]",
+    textColor: "text-[#00A44A]",
+    badgeBg: "bg-[#00A44A]/10",
   },
 ];
 
@@ -26,8 +31,8 @@ const EcommerceSection = () => {
         <div className="text-center mb-12">
           <h2 className="section-title">Temukan Kami di E-Commerce!</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Dapatkan produk Busalime yang kamu butuhkan di official store Busalime 
-            di e-commerce kesayangan Anda.
+            Dapatkan produk Busalime yang kamu butuhkan di official store
+            Busalime di e-commerce kesayangan Anda.
           </p>
         </div>
 
@@ -38,14 +43,25 @@ const EcommerceSection = () => {
               href={store.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`ecommerce-btn ${store.bgColor} ${store.borderColor} flex-col items-center justify-center py-6 px-8 animate-fade-in`}
-              style={{ animationDelay: `${index * 0.1}s` }}
+              // added class "uiverse-btn" and "group" for hover effects, use rounded-full for pill shape
+              className={`uiverse-btn group ${store.bgColor} ${store.borderColor} border rounded-full flex items-center gap-4 py-3 px-5 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all w-full md:w-auto`}
+              style={{ animationDelay: `${index * 0.08}s` }}
             >
               <img
                 src={store.logo}
                 alt={`Beli di ${store.name}`}
-                className="h-12 md:h-14 w-auto object-contain"
+                // add icon class so translate on hover applies to logos too
+                className="h-10 w-10 object-contain rounded-md icon"
               />
+
+              <div className="text-left">
+                <div className={`font-semibold text-base ${store.textColor}`}>
+                  {store.name}
+                </div>
+                <div className="text-sm text-muted-foreground">
+                  Official Store
+                </div>
+              </div>
             </a>
           ))}
         </div>
@@ -57,19 +73,56 @@ const EcommerceSection = () => {
             Belanja Sekarang!
           </h3>
           <p className="opacity-90 mb-6 max-w-lg mx-auto">
-            Dapatkan penawaran spesial dan promo menarik dengan berbelanja di official store kami.
+            Dapatkan penawaran spesial dan promo menarik dengan berbelanja di
+            official store kami.
           </p>
           <a
             href="https://tokopedia.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-background text-primary font-semibold px-6 py-3 rounded-full hover:bg-background/90 transition-colors"
+            // apply same button effect to CTA
+            className="uiverse-btn inline-flex items-center gap-2 bg-background text-primary font-semibold px-6 py-3 rounded-full hover:bg-background/90 transition-colors"
           >
             <ShoppingBag className="w-5 h-5" />
             Kunjungi Official Store
           </a>
         </div>
       </div>
+
+      {/* Inline CSS to reproduce Uiverse effect (kept local to this component) */}
+      <style>{`
+        .uiverse-btn {
+          cursor: pointer;
+          font-weight: 700;
+          transition: all 0.2s;
+          padding: 10px 20px;
+          border-radius: 100px;
+          border: 1px solid transparent;
+          display: inline-flex;
+          align-items: center;
+          font-size: 15px;
+        }
+        .uiverse-btn:hover {
+          /* gentle visual feedback without forcing a brand color */
+          filter: brightness(0.98);
+        }
+        /* target SVG children (icons) and image logos */
+        .uiverse-btn > svg,
+        .uiverse-btn > .icon,
+        .uiverse-btn img.icon {
+          width: 34px;
+          margin-left: 10px;
+          transition: transform 0.3s ease-in-out;
+        }
+        .uiverse-btn:hover > svg,
+        .uiverse-btn:hover > .icon,
+        .uiverse-btn:hover img.icon {
+          transform: translateX(5px);
+        }
+        .uiverse-btn:active {
+          transform: scale(0.95);
+        }
+      `}</style>
     </section>
   );
 };
