@@ -21,18 +21,21 @@ const AboutSection = () => {
 
       <div className="container-section">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Image Side */}
+          {/* Image Side */}-{" "}
           <div className="order-2 lg:order-1 flex justify-center">
-            <div className="relative">
-              <div className="w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full absolute -z-10 blur-3xl" />
-              <img
-                src={produkImg}
-                alt="Busalime Cairan Pencuci Piring"
-                className="w-64 md:w-80 h-auto drop-shadow-2xl animate-float"
-              />
+            +{" "}
+            <div className="order-2 lg:order-1 hidden lg:flex justify-center">
+              <div className="relative">
+                <div className="w-72 h-72 md:w-96 md:h-96 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full absolute -z-10 blur-3xl" />
+                <img
+                  src={produkImg}
+                  alt="Busalime Cairan Pencuci Piring"
+                  className="w-64 md:w-80 h-auto drop-shadow-2xl animate-float"
+                />
+              </div>
             </div>
           </div>
-
+          
           {/* Content Side */}
           <div className="order-1 lg:order-2">
             <h2 className="section-title">Tentang Busalime</h2>

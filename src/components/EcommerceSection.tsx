@@ -32,7 +32,7 @@ const EcommerceSection = () => {
           <h2 className="section-title">Temukan Kami di E-Commerce!</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Dapatkan produk Busalime yang kamu butuhkan di official store
-            Busalime di e-commerce kesayangan Anda.
+            Busalime di e-commerce Favorit Anda.
           </p>
         </div>
 
