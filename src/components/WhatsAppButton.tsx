@@ -1,48 +1,67 @@
-import { useState } from 'react';
-import { Mail, X, Phone, MapPin, Clock, Send } from 'lucide-react';
-import { toast } from 'sonner';
+import { useState } from "react";
+import { Mail, X, Phone, MapPin, Clock, Send } from "lucide-react";
+import { toast } from "sonner";
 
 const WhatsAppButton = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   });
 
   const contactInfo = [
     {
       icon: Phone,
-      label: 'Telepon',
-      value: '08123456789',
-      href: 'tel:08123456789',
+      label: "Telepon",
+      value: "08123456789",
+      href: "tel:08123456789",
     },
     {
       icon: Mail,
-      label: 'Email',
-      value: 'busalime@info.com',
-      href: 'mailto:busalime@info.com',
+      label: "Email",
+      value: "busalime@info.com",
+      href: "mailto:busalime@info.com",
     },
     {
       icon: MapPin,
-      label: 'Alamat',
-      value: 'Indramayu, Indonesia',
-      href: '#',
+      label: "Alamat",
+      value: "Indramayu, Indonesia",
+      href: "#",
     },
     {
       icon: Clock,
-      label: 'Jam Operasional',
-      value: 'Senin - Sabtu, 08:00 - 17:00',
-      href: '#',
+      label: "Jam Operasional",
+      value: "Senin - Sabtu, 08:00 - 17:00",
+      href: "#",
     },
   ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success('Pesan terkirim!');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+
+    // ambil subject dari form, fallback ke string kosong jika perlu
+    const to = "busalime@info.com";
+    const subject = formData.subject || "";
+
+    // body sesuai yang diisi di halaman (nama, email, subjek, pesan)
+    const body = `Nama: ${formData.name}\nEmail: ${formData.email}\nSubjek: ${formData.subject}\n\n${formData.message}`;
+
+    // Gmail web compose URL -> membuka tab baru tanpa mengganti halaman saat ini
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(
+      to
+    )}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+    // buka di tab baru (noopener untuk keamanan)
+    const newWindow = window.open(gmailLink, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
+
+    // reset form dan tutup dialog
+    setFormData({ name: "", email: "", subject: "", message: "" });
     setIsOpen(false);
+
+    toast.success("Membuka Gmail...");
   };
 
   return (
@@ -66,9 +85,11 @@ const WhatsAppButton = () => {
             {/* Header */}
             <div className="flex items-center justify-between p-4 md:p-6 border-b border-border">
               <div>
-                <h2 className="text-xl md:text-2xl font-bold text-foreground">Hubungi Kami</h2>
+                <h2 className="text-xl md:text-2xl font-bold text-foreground">
+                  Hubungi Kami
+                </h2>
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors"
               >
@@ -81,7 +102,9 @@ const WhatsAppButton = () => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
                 {/* Contact Info - Left Side */}
                 <div className="space-y-4">
-                  <h3 className="font-bold text-foreground text-lg">Informasi Kontak</h3>
+                  <h3 className="font-bold text-foreground text-lg">
+                    Informasi Kontak
+                  </h3>
                   <div className="space-y-3">
                     {contactInfo.map((item, index) => (
                       <a
@@ -93,8 +116,12 @@ const WhatsAppButton = () => {
                           <item.icon className="w-5 h-5 text-primary" />
                         </div>
                         <div>
-                          <p className="text-xs text-muted-foreground">{item.label}</p>
-                          <p className="text-sm font-medium text-foreground">{item.value}</p>
+                          <p className="text-xs text-muted-foreground">
+                            {item.label}
+                          </p>
+                          <p className="text-sm font-medium text-foreground">
+                            {item.value}
+                          </p>
                         </div>
                       </a>
                     ))}
@@ -103,7 +130,9 @@ const WhatsAppButton = () => {
 
                 {/* Contact Form - Right Side */}
                 <div className="space-y-4">
-                  <h3 className="font-bold text-foreground text-lg">Kirim Pesan</h3>
+                  <h3 className="font-bold text-foreground text-lg">
+                    Kirim Pesan
+                  </h3>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
@@ -113,7 +142,9 @@ const WhatsAppButton = () => {
                         <input
                           type="text"
                           value={formData.name}
-                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({ ...formData, name: e.target.value })
+                          }
                           required
                           className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm"
                         />
@@ -125,7 +156,9 @@ const WhatsAppButton = () => {
                         <input
                           type="email"
                           value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          onChange={(e) =>
+                            setFormData({ ...formData, email: e.target.value })
+                          }
                           required
                           placeholder="name@example.com"
                           className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm"
@@ -139,7 +172,9 @@ const WhatsAppButton = () => {
                       <input
                         type="text"
                         value={formData.subject}
-                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, subject: e.target.value })
+                        }
                         required
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm"
                       />
@@ -150,7 +185,9 @@ const WhatsAppButton = () => {
                       </label>
                       <textarea
                         value={formData.message}
-                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        onChange={(e) =>
+                          setFormData({ ...formData, message: e.target.value })
+                        }
                         required
                         rows={4}
                         className="w-full px-4 py-2.5 rounded-xl border border-border bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all resize-none text-sm"
