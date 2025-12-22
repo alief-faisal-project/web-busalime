@@ -163,8 +163,8 @@ const FeatureBar = () => {
                 <span
                   className={`inline-flex items-center justify-center rounded-full transition-colors ${
                     idx === activeIndex
-                      ? "w-6 h-6 border-2 border-green-600"
-                      : "w-7 h-7 border border-gray-100"
+                      ? "w-5 h-5 border border-green-600" // diturunkan dari border-2 ke border
+                      : "w-5 h-5 border border-gray-100" // samakan ukuran untuk konsistensi
                   }`}
                   aria-hidden
                 >
@@ -172,8 +172,8 @@ const FeatureBar = () => {
                   <span
                     className={`rounded-full transition-all ${
                       idx === activeIndex
-                        ? "w-[10px] h-[10px] bg-green-600"
-                        : "w-[10px] h-[10px] bg-gray-200"
+                        ? "w-[10px] h-[10px] bg-green-600" // sedikit diperkecil agar ring tampak lebih tipis
+                        : "w-[8px] h-[8px] bg-gray-200"
                     }`}
                   />
                 </span>

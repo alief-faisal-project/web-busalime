@@ -35,7 +35,6 @@ const AboutSection = () => {
               </div>
             </div>
           </div>
-          
           {/* Content Side */}
           <div className="order-1 lg:order-2">
             <h2 className="section-title">Tentang Busalime</h2>
