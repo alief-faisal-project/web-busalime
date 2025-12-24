@@ -1,4 +1,4 @@
-import heroBanner from "@/assets/banner-hero.png";
+import heroBanner from "@/assets/banner-hero.jpgcle";
 import heroBannerMobile from "@/assets/banner-hero-mobile.jpg";
 
 const HeroBanner = () => {
