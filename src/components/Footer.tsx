@@ -1,173 +1,179 @@
-import { Mail, Phone, MapPin, Facebook, Instagram, Youtube } from 'lucide-react';
-import logoBsc from '@/assets/logo-bsc.png';
+import { Mail, Phone, MapPin, Instagram } from "lucide-react";
+import logoBsc from "@/assets/logo-bsc.png";
+
+const ICON_COLOR = "text-[#14532d]"; // hijau tua
+const ICON_BG = "bg-[#14532d]/10";
+
+const MAIL_LINK =
+  "https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=busalime@info.com";
+
+const INSTAGRAM_LINK = "https://www.instagram.com/busalime"; // ganti kalau beda
 
 const Footer = () => {
   return (
-    <footer id="contact" className="bg-primary text-primary-foreground">
+    <footer id="contact" className="bg-white text-black">
       <div className="container-section py-8 md:py-16">
-        {/* Mobile: Simple layout */}
+        {/* ================= MOBILE ================= */}
         <div className="md:hidden space-y-6">
           {/* Logo & Description */}
           <div className="text-center">
-            <img src={logoBsc} alt="PT. Busalime Sukses Cemerlang" className="h-12 w-auto mx-auto mb-3" />
-            <p className="text-primary-foreground/80 text-sm">
+            <img
+              src={logoBsc}
+              alt="PT. Busalime Sukses Cemerlang"
+              className="h-12 w-auto mx-auto mb-3"
+            />
+            <p className="text-gray-700 text-sm">
               Cairan pencuci piring dengan aroma jeruk nipis segar
             </p>
           </div>
 
-          {/* Contact Info - Compact */}
+          {/* Contact Info */}
           <div className="flex flex-col items-center gap-2 text-sm">
-            <a href="tel:0211234567" className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground">
-              <Phone className="w-4 h-4" />
+            <a
+              href="tel:0211234567"
+              className="flex items-center gap-2 text-gray-700"
+            >
+              <Phone className={`w-4 h-4 ${ICON_COLOR}`} />
               <span>(021) 123-4567</span>
             </a>
-            <a href="mailto:info@busalime.id" className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground">
-              <Mail className="w-4 h-4" />
-              <span>info@busalime.id</span>
+            <a
+              href={MAIL_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-gray-700"
+            >
+              <Mail className={`w-4 h-4 ${ICON_COLOR}`} />
+              <span>busalime@info.com</span>
             </a>
           </div>
 
           {/* Social Icons */}
           <div className="flex justify-center gap-3">
             <a
-              href="https://facebook.com"
+              href={INSTAGRAM_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
-              aria-label="Facebook"
+              className={`w-9 h-9 rounded-full ${ICON_BG} flex items-center justify-center hover:bg-[#14532d]/20 transition`}
             >
-              <Facebook className="w-4 h-4 text-primary-foreground" />
+              <Instagram className={`w-4 h-4 ${ICON_COLOR}`} />
             </a>
+
             <a
-              href="https://instagram.com"
+              href={MAIL_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
-              aria-label="Instagram"
+              className={`w-9 h-9 rounded-full ${ICON_BG} flex items-center justify-center hover:bg-[#14532d]/20 transition`}
             >
-              <Instagram className="w-4 h-4 text-primary-foreground" />
-            </a>
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
-              aria-label="YouTube"
-            >
-              <Youtube className="w-4 h-4 text-primary-foreground" />
+              <Mail className={`w-4 h-4 ${ICON_COLOR}`} />
             </a>
           </div>
 
           {/* Copyright */}
-          <div className="text-center border-t border-primary-foreground/20 pt-4">
-            <p className="text-primary-foreground/70 text-xs">
+          <div className="text-center border-t border-gray-200 pt-4">
+            <p className="text-gray-500 text-xs">
               © {new Date().getFullYear()} PT. Busalime Sukses Cemerlang
             </p>
           </div>
         </div>
 
-        {/* Desktop: Full layout */}
+        {/* ================= DESKTOP ================= */}
         <div className="hidden md:block">
           <div className="grid grid-cols-4 gap-8">
             {/* Brand */}
             <div>
-              <img src={logoBsc} alt="PT. Busalime Sukses Cemerlang" className="h-1 w-auto mb-1" />
-              <p className="text-primary-foreground/80 text-sm leading-relaxed">
-                PT.Busalime Sukses Cemerlang
+              <img
+                src={logoBsc}
+                alt="PT. Busalime Sukses Cemerlang"
+                className="h-12 w-auto mb-3"
+              />
+              <p className="text-gray-700 text-sm leading-relaxed">
+                PT. Busalime Sukses Cemerlang
               </p>
             </div>
 
-            {/* Quick Links */}
+            {/* Menu */}
             <div>
-              <h4 className="font-bold text-lg mb-4">Menu</h4>
+              <h4 className="font-bold text-lg mb-4 text-black">Menu</h4>
               <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-primary-foreground/80 hover:text-primary-foreground text-sm transition-colors">
-                    Beranda
-                  </a>
+                {[
+                  { label: "Beranda", href: "#" },
+                  { label: "Tentang Kami", href: "#about" },
+                  { label: "Produk", href: "#products" },
+                  { label: "E-Commerce", href: "#ecommerce" },
+                ].map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      className="text-gray-700 hover:text-black text-sm transition"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Kontak */}
+            <div>
+              <h4 className="font-bold text-lg mb-4 text-black">Kontak</h4>
+              <ul className="space-y-3 text-sm">
+                <li className="flex gap-3">
+                  <MapPin className={`w-4 h-4 mt-0.5 ${ICON_COLOR}`} />
+                  <span className="text-gray-700">Indramayu, Indonesia</span>
                 </li>
-                <li>
-                  <a href="#about" className="text-primary-foreground/80 hover:text-primary-foreground text-sm transition-colors">
-                    Tentang Kami
-                  </a>
+                <li className="flex gap-3">
+                  <Phone className={`w-4 h-4 ${ICON_COLOR}`} />
+                  <span className="text-gray-700">(021) 123-4567</span>
                 </li>
-                <li>
-                  <a href="#products" className="text-primary-foreground/80 hover:text-primary-foreground text-sm transition-colors">
-                    Produk
-                  </a>
-                </li>
-                <li>
-                  <a href="#ecommerce" className="text-primary-foreground/80 hover:text-primary-foreground text-sm transition-colors">
-                    E-Commerce
-                  </a>
+                <li className="flex gap-3">
+                  <Mail className={`w-4 h-4 ${ICON_COLOR}`} />
+                  <span className="text-gray-700">busalime@info.com</span>
                 </li>
               </ul>
             </div>
 
-            {/* Contact */}
+            {/* Social */}
             <div>
-              <h4 className="font-bold text-lg mb-4">Kontak</h4>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3 text-sm">
-                  <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary-foreground" />
-                  <span className="text-primary-foreground/80">
-                    Jakarta, Indonesia
-                  </span>
-                </li>
-                <li className="flex items-center gap-3 text-sm">
-                  <Phone className="w-4 h-4 flex-shrink-0 text-primary-foreground" />
-                  <span className="text-primary-foreground/80">
-                    (021) 123-4567
-                  </span>
-                </li>
-                <li className="flex items-center gap-3 text-sm">
-                  <Mail className="w-4 h-4 flex-shrink-0 text-primary-foreground" />
-                  <span className="text-primary-foreground/80">
-                    info@busalime.id
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Social Media */}
-            <div>
-              <h4 className="font-bold text-lg mb-4">Ikuti Kami</h4>
+              <h4 className="font-bold text-lg mb-4 text-black">Ikuti Kami</h4>
               <div className="flex gap-3">
                 <a
-                  href="https://facebook.com"
+                  href={MAIL_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
-                  aria-label="Facebook"
+                  className="
+                    w-9 h-9 rounded-full
+                    bg-[#14532d]
+                    flex items-center justify-center
+                    hover:bg-[#166534]
+                    transition-all duration-200
+                  "
                 >
-                  <Facebook className="w-4 h-4 text-primary-foreground" />
+                  <Mail className="w-4 h-4 text-white" />
                 </a>
+
                 <a
-                  href="https://instagram.com"
+                  href={INSTAGRAM_LINK}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
-                  aria-label="Instagram"
+                  className="
+                    w-9 h-9 rounded-full
+                    bg-[#14532d]
+                    flex items-center justify-center
+                    hover:bg-[#166534]
+                    transition-all duration-200
+                  "
                 >
-                  <Instagram className="w-4 h-4 text-primary-foreground" />
-                </a>
-                <a
-                  href="https://youtube.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-9 h-9 rounded-full bg-primary-foreground/10 flex items-center justify-center hover:bg-primary-foreground/20 transition-colors"
-                  aria-label="YouTube"
-                >
-                  <Youtube className="w-4 h-4 text-primary-foreground" />
+                  <Instagram className="w-4 h-4 text-white" />
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="border-t border-primary-foreground/20 mt-10 pt-6 text-center">
-            <p className="text-primary-foreground/70 text-sm">
-              © {new Date().getFullYear()} PT. Busalime Sukses Cemerlang. All rights reserved.
+          {/* Bottom */}
+          <div className="border-t border-gray-200 mt-10 pt-6 text-center">
+            <p className="text-gray-500 text-sm">
+              © {new Date().getFullYear()} PT. Busalime Sukses Cemerlang. All
+              rights reserved.
             </p>
           </div>
         </div>

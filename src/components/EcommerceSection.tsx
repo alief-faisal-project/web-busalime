@@ -1,124 +1,144 @@
+import { useState, useRef, useEffect } from "react";
 import { ShoppingBag } from "lucide-react";
 import shopeeLogo from "@/assets/shopee-logo.png";
 import tokopediaLogo from "@/assets/tokopedia-logo.png";
-
-const ecommerceStores = [
-  {
-    name: "Shopee",
-    logo: shopeeLogo,
-    url: "https://shopee.co.id",
-    bgColor: "bg-[#FFF4EE]",
-    borderColor: "border-[#FF6E3A]",
-    textColor: "text-[#FF6E3A]",
-    badgeBg: "bg-[#FF6E3A]/10",
-    showSubtitle: false,
-  },
-  {
-    name: "Tokopedia",
-    logo: tokopediaLogo,
-    url: "https://tokopedia.com",
-    bgColor: "bg-[#F3FFF6]",
-    borderColor: "border-[#00A44A]",
-    textColor: "text-[#00A44A]",
-    badgeBg: "bg-[#00A44A]/10",
-    showSubtitle: false,
-  },
-];
+import ecommerceBg from "@/assets/ecommercesection.png";
 
 const EcommerceSection = () => {
+  const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  // close when click outside
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
+
   return (
-    <section id="ecommerce" className="py-16 md:py-24">
-      <div className="container-section">
-        <div className="text-center mb-12">
-          <h2 className="section-title">Temukan Kami di E-Commerce!</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Dapatkan produk Busalime yang kamu butuhkan di official store
-            Busalime di e-commerce Favorit Anda.
+    <section
+      id="ecommerce"
+      className="relative py-20 md:py-32 overflow-hidden"
+      style={{
+        backgroundImage: `url(${ecommerceBg})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* overlay */}
+      <div className="absolute inset-0 bg-black/30" />
+
+      <div className="relative z-10 container-section">
+        {/* HEADER */}
+        <div className="text-center mb-14 text-white">
+          <h2 className="section-title text-white">
+            Temukan Kami di E-Commerce!
+          </h2>
+          <p className="text-white/90 max-w-2xl mx-auto">
+            Dapatkan produk Busalime di official store e-commerce favorit Anda.
           </p>
         </div>
 
-        <div className="flex justify-center gap-6 md:gap-8 max-w-xl mx-auto">
-          {ecommerceStores.map((store, index) => (
-            <a
-              key={store.name}
-              href={store.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`uiverse-btn group ${store.bgColor} ${store.borderColor} border rounded-full flex items-center gap-2 py-2 px-3 shadow-sm hover:shadow-md transform hover:-translate-y-0.5 transition-all w-auto md:w-auto`}
-              style={{ animationDelay: `${index * 0.08}s` }}
-            >
-              <img
-                src={store.logo}
-                alt={`Beli di ${store.name}`}
-                className="h-8 w-8 object-contain rounded-md icon"
-              />
-
-              <div className="text-left">
-                <div className={`font-semibold text-base ${store.textColor}`}>
-                  {store.name}
-                </div>
-                {store.showSubtitle !== false && (
-                  <div className="text-xs md:text-sm text-muted-foreground">
-                    Official Store
-                  </div>
-                )}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <div className="mt-12 bg-primary rounded-2xl p-8 md:p-12 text-center text-primary-foreground">
+        {/* CTA */}
+        <div className="mt-16 bg-white/15 backdrop-blur-md rounded-2xl p-8 md:p-12 text-center text-white shadow-xl border border-white/30">
           <ShoppingBag className="w-12 h-12 mx-auto mb-4 opacity-90" />
+
           <h3 className="text-2xl md:text-3xl font-bold mb-3">
             Belanja Sekarang!
           </h3>
+
           <p className="opacity-90 mb-6 max-w-lg mx-auto">
-            Dapatkan penawaran spesial dan promo menarik dengan berbelanja di
-            official store kami.
+            Dapatkan promo menarik dengan berbelanja di official store kami.
           </p>
-          <a
-            href="https://shopee.co.id"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="uiverse-btn inline-flex items-center gap-2 bg-background text-primary font-semibold px-6 py-3 rounded-full hover:bg-background/90 transition-colors"
-          >
-            <ShoppingBag className="w-5 h-5" />
-            Kunjungi Official Store
-          </a>
+
+          {/* BUTTON AREA */}
+          <div ref={wrapperRef} className="flex justify-center">
+            {!open ? (
+              /* KUNJUNGI OFFICIAL STORE (DARK GREEN) */
+              <button
+                onClick={() => setOpen(true)}
+                className="
+                  uiverse-btn
+                  bg-[#14532d]
+                  text-white
+                  hover:bg-[#166534]
+                "
+              >
+                <ShoppingBag className="w-5 h-5 text-white" />
+                Kunjungi Official Store
+              </button>
+            ) : (
+              /* SHOPEE & TOKOPEDIA (WHITE) */
+              <div className="flex gap-4 animate-swap">
+                <a
+                  href="https://shopee.co.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="uiverse-btn bg-white text-black"
+                >
+                  <img src={shopeeLogo} className="w-6 h-6" />
+                  <span className="text-[#FF6E3A] font-semibold">Shopee</span>
+                </a>
+
+                <a
+                  href="https://tokopedia.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="uiverse-btn bg-white text-black"
+                >
+                  <img src={tokopediaLogo} className="w-6 h-6" />
+                  <span className="text-[#00A44A] font-semibold">
+                    Tokopedia
+                  </span>
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Inline CSS to reproduce Uiverse effect (kept local to this component) */}
+      {/* STYLE */}
       <style>{`
         .uiverse-btn {
-          cursor: pointer;
-          font-weight: 700;
-          transition: all 0.18s;
-          padding: 10px 20px;
-          border-radius: 100px;
-          border: 1px solid transparent;
           display: inline-flex;
           align-items: center;
-          font-size: 15px;
+          gap: 8px;
+          padding: 12px 24px;
+          border-radius: 999px;
+          font-weight: 700;
+          transition: all 0.25s ease;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
+
         .uiverse-btn:hover {
-          filter: brightness(0.98);
+          transform: translateY(-2px);
+          filter: brightness(0.97);
         }
-        /* reduce gap between logo and text: smaller gap + smaller margin on icon */
-        .uiverse-btn > svg,
-        .uiverse-btn > .icon,
-        .uiverse-btn img.icon {
-          max-height: 34px;
-          margin-right: 6px;
-          transition: transform 0.18s ease-in-out;
-        }
-        .uiverse-btn:hover > svg,
-        .uiverse-btn:hover > .icon,
-        .uiverse-btn:hover img.icon {
-          transform: translateX(4px);
-        }
+
         .uiverse-btn:active {
-          transform: scale(0.95);
+          transform: scale(0.96);
+        }
+
+        @keyframes swap {
+          from {
+            opacity: 0;
+            transform: scale(0.95);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        .animate-swap {
+          animation: swap 0.25s ease-out;
         }
       `}</style>
     </section>

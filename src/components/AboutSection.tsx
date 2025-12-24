@@ -33,31 +33,44 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Content Side - shown on all sizes, appears first on mobile */}
+          {/* Content Side */}
           <div className="order-1 lg:order-2">
             <h2 className="section-title">Tentang Busalime</h2>
+
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Busalime hadir sebagai pilihan terbaik cairan pencuci piring untuk
               keluarga Indonesia. Dengan formula khusus dan aroma jeruk nipis
               yang menyegarkan, Busalime membantu membersihkan peralatan dapur
               Anda dengan mudah dan efektif.
             </p>
+
             <p className="text-muted-foreground mb-8 leading-relaxed">
               Diperkaya dengan bahan-bahan berkualitas tinggi, Busalime tidak
               hanya membersihkan lemak membandel tapi juga menjaga kelembutan
               tangan Anda. Pilihan tepat untuk keluarga yang peduli kebersihan
               dan kesehatan.
             </p>
+
+            {/* BUTTON — DARK GREEN (CUMA INI YANG DIUBAH) */}
             <a
               href="#products"
-              className="btn-primary inline-flex items-center gap-2 hover:gap-3 transition-all"
+              className="
+                inline-flex items-center gap-2
+                bg-[#14532d]
+                text-white
+                px-6 py-3
+                rounded-full
+                font-semibold
+                hover:bg-[#166534]
+                transition-all
+                hover:gap-3
+              "
               onClick={(e) => {
                 e.preventDefault();
                 const el = document.getElementById("products");
                 if (el) {
                   el.scrollIntoView({ behavior: "smooth", block: "start" });
                 } else {
-                  // fallback: update hash jika elemen belum ada di DOM
                   window.location.hash = "#products";
                 }
               }}
