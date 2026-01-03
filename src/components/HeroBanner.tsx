@@ -120,7 +120,7 @@ const HeroBanner = () => {
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center text-white">
           <p className="font-extrabold text-lg leading-snug mb-2 drop-shadow">
             TEMUKAN BUSALIME DI <br />
-            E-COMMERCE FAVORIT ANDA!
+            E-COMMERCE FAVORIT ANDA
           </p>
 
           {/* ARROWS */}
