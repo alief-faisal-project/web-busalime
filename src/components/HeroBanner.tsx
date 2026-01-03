@@ -127,10 +127,7 @@ const HeroBanner = () => {
           {!open ? (
             <ArrowDown className="w-7 h-7 animate-bounce mb-4 drop-shadow" />
           ) : (
-            <div className="flex gap-10 mb-4 animate-swap">
-              <ArrowDownLeft className="w-7 h-7 animate-pulse drop-shadow" />
-              <ArrowDownRight className="w-7 h-7 animate-pulse drop-shadow" />
-            </div>
+            <div className="flex gap-10 mb-4 animate-swap"></div>
           )}
 
           <StoreButtons />
